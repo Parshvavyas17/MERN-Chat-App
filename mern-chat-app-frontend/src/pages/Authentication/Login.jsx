@@ -1,8 +1,24 @@
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Login.css";
+import { useState } from "react";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
   return (
     <Container>
       <Row>
@@ -11,17 +27,15 @@ const Login = () => {
           md={7}
           className="d-flex align-items-center justify-content-center flex-direction-column"
         >
-          <Form
-            style={{ width: "80%", maxWidth: 500 }} /*onSubmit={handleLogin}*/
-          >
+          <Form style={{ width: "80%", maxWidth: 500 }} onSubmit={handleLogin}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               {/* {error && <p className="alert alert-danger">{error.data}</p>} */}
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter email"
-                // onChange={(e) => setEmail(e.target.value)}
-                // value={email}
+                onChange={handleEmailChange}
+                value={email}
                 required
               />
               <Form.Text className="text-muted">
@@ -34,8 +48,8 @@ const Login = () => {
               <Form.Control
                 type="password"
                 placeholder="Password"
-                // onChange={(e) => setPassword(e.target.value)}
-                // value={password}
+                onChange={handlePasswordChange}
+                value={password}
                 required
               />
             </Form.Group>
