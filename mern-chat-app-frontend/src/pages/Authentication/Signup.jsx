@@ -1,8 +1,9 @@
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import botImg from "../../assets/bot.jpeg";
 import { useState } from "react";
+import { useSignupUserMutation } from "../../services/appApi";
 import axios from "axios";
 
 const Signup = () => {
@@ -12,6 +13,9 @@ const Signup = () => {
   const [image, setImage] = useState(null);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const [signupUser, { isLoading, error }] = useSignupUserMutation();
+
+  const navigate = useNavigate();
 
   const validateImage = (e) => {
     const image = e.target.files[0];
@@ -46,6 +50,12 @@ const Signup = () => {
     if (!image) return alert("Please upload your Profile Picture.");
     const url = await uploadImage(image);
     console.log(url);
+    signupUser({ name, email, password, picture: url }).then(({ data }) => {
+      if (data) {
+        console.log(data);
+        navigate("/chat");
+      }
+    });
   };
 
   const handleNameChange = (e) => {
@@ -69,7 +79,7 @@ const Signup = () => {
         >
           <Form style={{ width: "80%", maxWidth: 500 }} onSubmit={handleSubmit}>
             <h1 className="text-center">Create account</h1>
-            <div className="Signup-profile-pic__container">
+            <div className="Signup-profile-pic-container">
               <img
                 src={previewImage || botImg}
                 className="Signup-profile-pic"
@@ -90,7 +100,7 @@ const Signup = () => {
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Your name"
+                placeholder="Your Name"
                 value={name}
                 onChange={handleNameChange}
               />
@@ -99,7 +109,7 @@ const Signup = () => {
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter email"
+                placeholder="Enter Email"
                 value={email}
                 onChange={handleEmailChange}
               />
@@ -111,7 +121,7 @@ const Signup = () => {
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placeholder="Enter your Password"
                 value={password}
                 onChange={handlePasswordChange}
               />

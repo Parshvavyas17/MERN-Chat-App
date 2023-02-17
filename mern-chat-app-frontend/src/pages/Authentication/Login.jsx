@@ -1,14 +1,23 @@
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { useState } from "react";
+import { useLoginUserMutation } from "../../services/appApi";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginUser, { isLoading, error }] = useLoginUserMutation();
 
-  const handleLogin = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    loginUser({ email, password }).then(({ data }) => {
+      if (data) {
+        navigate("/chat");
+      }
+    });
   };
 
   const handleEmailChange = (e) => {
@@ -27,9 +36,9 @@ const Login = () => {
           md={7}
           className="d-flex align-items-center justify-content-center flex-direction-column"
         >
-          <Form style={{ width: "80%", maxWidth: 500 }} onSubmit={handleLogin}>
+          <Form style={{ width: "80%", maxWidth: 500 }} onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              {/* {error && <p className="alert alert-danger">{error.data}</p>} */}
+              {error && <p className="alert alert-danger">{error.data}</p>}
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
@@ -54,12 +63,11 @@ const Login = () => {
               />
             </Form.Group>
             <Button variant="primary" type="submit">
-              {/* {isLoading ? <Spinner animation="grow" /> : "Login"} */}
-              Login
+              {isLoading ? <Spinner animation="grow" /> : "Login"}
             </Button>
             <div className="py-4">
               <p className="text-center">
-                Don't have an account ? <Link to="/signup">Signup</Link>
+                Don't have an account? <Link to="/signup">Signup</Link>
               </p>
             </div>
           </Form>

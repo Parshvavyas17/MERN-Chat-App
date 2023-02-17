@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Col, ListGroup, Row } from "react-bootstrap";
 import "./Sidebar.css";
 
