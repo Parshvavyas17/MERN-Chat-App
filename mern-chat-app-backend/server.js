@@ -9,7 +9,7 @@ const userRouter = require("./routers/user.route");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-app.use(userRouter);
+app.use("/user", userRouter);
 
 const server = http.createServer(app);
 
