@@ -1,9 +1,11 @@
 import "./MessageForm.css";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const MessageForm = () => {
   const [message, setMessage] = useState("");
+  const user = useSelector((state) => state.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,7 +19,7 @@ const MessageForm = () => {
     <>
       <div className="messages-output">
         {
-          /* user && !privateMemberMsg?._id && */ <div className="alert alert-info">
+          /*user && !privateMemberMsg?._id && */ <div className="alert alert-info">
             You are in the {/* currentRoom */} room
           </div>
         }
@@ -34,8 +36,7 @@ const MessageForm = () => {
             </div>
           </>
         }
-        {/* !user && */
-        /*<div className="alert alert-danger">Please login</div> */}
+        {!user && <div className="alert alert-danger">Please login</div>}
         {/* user && */
         /*messages.map(({ _id: date, messagesByDate }, idx) => (
             <div key={idx}>
@@ -86,7 +87,7 @@ const MessageForm = () => {
               <Form.Control
                 type="text"
                 placeholder="Your message"
-                // disabled={!user}
+                disabled={!user}
                 value={message}
                 onChange={handleMessageChange}
               ></Form.Control>
@@ -97,7 +98,7 @@ const MessageForm = () => {
               variant="primary"
               type="submit"
               style={{ width: "100%", backgroundColor: "orange" }}
-              // disabled={!user}
+              disabled={!user}
             >
               <i className="fas fa-paper-plane"></i>
             </Button>

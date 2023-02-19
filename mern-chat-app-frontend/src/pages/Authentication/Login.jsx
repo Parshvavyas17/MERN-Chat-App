@@ -1,13 +1,15 @@
 import { Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useLoginUserMutation } from "../../services/appApi";
+import { AppContext } from "../../context/AppContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginUser, { isLoading, error }] = useLoginUserMutation();
+  const { socket } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -15,6 +17,7 @@ const Login = () => {
     e.preventDefault();
     loginUser({ email, password }).then(({ data }) => {
       if (data) {
+        socket.emit("new-user");
         navigate("/chat");
       }
     });

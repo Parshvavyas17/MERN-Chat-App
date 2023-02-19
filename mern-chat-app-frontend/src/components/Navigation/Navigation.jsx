@@ -4,12 +4,12 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/esm/Button";
 import { LinkContainer } from "react-router-bootstrap";
-import logo from "../assets/logo.png";
-import { useLogoutUserMutation } from "../services/appApi";
+import logo from "../../assets/logo.png";
+import { useLogoutUserMutation } from "../../services/appApi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const NavigationBar = () => {
+const Navigation = () => {
   const user = useSelector((state) => state.user);
   const [logoutUser] = useLogoutUserMutation();
   const navigate = useNavigate();
@@ -79,4 +79,4 @@ const NavigationBar = () => {
   );
 };
 
-export default NavigationBar;
+export default Navigation;

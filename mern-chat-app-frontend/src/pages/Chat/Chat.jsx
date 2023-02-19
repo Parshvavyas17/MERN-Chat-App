@@ -1,7 +1,7 @@
 import "./Chat.css";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import Sidebar from "./../../components/Sidebar";
-import MessageForm from "../../components/MessageForm";
+import { Container, Row, Col } from "react-bootstrap";
+import Sidebar from "./../../components/Sidebar/Sidebar";
+import MessageForm from "../../components/MessageForm/MessageForm";
 
 const Chat = () => {
   return (
