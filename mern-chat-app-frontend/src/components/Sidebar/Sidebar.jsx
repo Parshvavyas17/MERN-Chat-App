@@ -107,7 +107,7 @@ const Sidebar = () => {
       <h2>Members</h2>
       {members.map((member) => (
         <ListGroup.Item
-          key={member.id}
+          key={member._id}
           style={{ cursor: "pointer" }}
           active={privateMemberMsg?._id === member?._id}
           onClick={() => handlePrivateMemberMsg(member)}
@@ -118,7 +118,7 @@ const Sidebar = () => {
               <img
                 src={member.picture}
                 className="Member-status-img"
-                alt="User DP"
+                alt="Member User"
               />
               {member.status === "online" ? (
                 <i className="fas fa-circle Sidebar-online-status"></i>

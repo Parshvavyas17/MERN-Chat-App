@@ -96,6 +96,7 @@ const Signup = () => {
                 onChange={validateImage}
               />
             </div>
+            {error && <p className="alert alert-danger">{error.data}</p>}
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Name</Form.Label>
               <Form.Control
